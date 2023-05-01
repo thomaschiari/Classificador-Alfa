@@ -1,7 +1,6 @@
 import numpy as np
 import autograd.numpy as np_
 from autograd import grad
-from sklearn.metrics import accuracy_score
 
 
 class ClassificadorAlfa():
@@ -11,32 +10,26 @@ class ClassificadorAlfa():
         self.iters = iters
         self.params = params
 
-    def erro(self, params):
+    @staticmethod
+    def erro(params):
         a, b, x, y = params
-        yhat = a.T @ x + b
+        yhat = a.T@x + b
         mse = np_.mean((yhat - y)**2)
         return mse
 
     def melhorar_modelo(self):
-        params = self.params
-        for i in range(self.iters):
-            a, b, x, y = params
-            grads = grad(self.erro)(params)
-            a -= self.learning_rate * grads[0]
-            b -= self.learning_rate * grads[1]
-            params = [a, b, x, y]
-        return params
+        g = grad(ClassificadorAlfa.erro)
+        a, b, x, y = self.params
+        for _ in range(self.iters):
+            g_ = g((a, b, x, y))
+            a -= self.learning_rate * g_[0]
+            b -= self.learning_rate * g_[1]
+        return a, b
+
+    def treinar(self):
+        a, b = self.melhorar_modelo()
+        return a, b
 
     @staticmethod
-    def predict(params, xtest):
-        a, b, x, y = params
-        ypred = a.T @ xtest + b
-        return ypred
-
-    @staticmethod
-    def accuracy(ypred, ytest):
-        return np.mean(np.sign(ypred) == np.sign(ytest))
-
-    def main(self):
-        params = self.melhorar_modelo()
-        return params
+    def acuracia(ytest, ypred):
+        return np.mean(np.sign(ytest) == np.sign(ypred))
