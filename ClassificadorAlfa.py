@@ -10,9 +10,6 @@ class ClassificadorAlfa():
         self.learning_rate = learning_rate
         self.iters = iters
         self.params = params
-        
-    def gradient(self):
-        return grad(self.erro)
 
     def erro(self, params):
         a, b, x, y = params
@@ -24,14 +21,21 @@ class ClassificadorAlfa():
         params = self.params
         for i in range(self.iters):
             a, b, x, y = params
-            grads = self.gradient( (params) )
+            grads = grad(self.erro)(params)
             a -= self.learning_rate * grads[0]
             b -= self.learning_rate * grads[1]
             params = [a, b, x, y]
         return params
 
-    def accuracy(self, ypred, ytest):
-        return accuracy_score(ypred, ytest)
+    @staticmethod
+    def predict(params, xtest):
+        a, b, x, y = params
+        ypred = a.T @ xtest + b
+        return ypred
+
+    @staticmethod
+    def accuracy(ypred, ytest):
+        return np.mean(np.sign(ypred) == np.sign(ytest))
 
     def main(self):
         params = self.melhorar_modelo()
