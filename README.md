@@ -18,7 +18,7 @@ e `demo.ipynb`, que contém apenas um exemplo de utilização do classificador, 
 
 ### Metodologia
 
-Para realizar a análise de fatores de risco para um AVC, o grupo realizou uma análise comparativa entre três classificadores: um classificador linear, realizado pelo grupo e presente no arquivo [`ClassificadorAlfa`](ClassificadorAlfa.py), que utiliza o algoritmo de gradiente descentente para encontrar os melhores parâmetros para o modelo; uma árvore de decisão, para a qual utilizamos a biblioteca scikit-learn, através da metodologia de entropia; e um classificador que simplesmente prevê a observação mais frequente do dataset (aqui considerada a hipótese nula). Realizamos comparações para as acurácias dos três modelos, além de obtermos as características mais relevantes para prever um AVC.
+Para realizar a análise de fatores de risco para um AVC, o grupo realizou uma análise comparativa entre três classificadores: um classificador linear, realizado pelo grupo e presente no arquivo [`ClassificadorAlfa`](ClassificadorAlfa.py), que utiliza o algoritmo de gradiente descentente para encontrar os melhores parâmetros para o modelo; uma árvore de decisão, para a qual utilizamos a biblioteca `scikit-learn`, através da metodologia de entropia; e um classificador que simplesmente prevê a observação mais frequente do dataset (aqui considerada a hipótese nula). Realizamos comparações para as acurácias dos três modelos, além de obtermos as características mais relevantes para prever um AVC.
 
 ### Resultados
 
